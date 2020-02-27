@@ -17,6 +17,9 @@ const db=require('./config/db');
 
 db();
 
+//body parser
+app.use(express.json({extended:false}))
+
 
 //routes
 app.use('/api/v1/bootcamps',require('./routes/bootcamps'));
