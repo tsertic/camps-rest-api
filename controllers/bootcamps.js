@@ -7,7 +7,9 @@ exports.getBootcamps = async (req, res, next) => {
   try {
     const bootcamps = await Bootcamp.find();
 
-    res.status(200).json({ success: true,count:bootcamps.length, data: bootcamps });
+    res
+      .status(200)
+      .json({ success: true, count: bootcamps.length, data: bootcamps });
   } catch (error) {
     res.status(400).json({ success: false });
   }
@@ -21,7 +23,7 @@ exports.getBootcamp = async (req, res, next) => {
     if (!bootcamp) return res.status(400).json({ success: false });
     res.status(200).json({ success: true, msg: bootcamp });
   } catch (error) {
-    res.status(400).json({ success: false });
+    next(error);
   }
 };
 //@desc Create new bootcamp
@@ -42,7 +44,7 @@ exports.updateBootcamp = async (req, res, next) => {
   try {
     const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
 
     if (!bootcamp) return res.status(400).json({ success: false });
